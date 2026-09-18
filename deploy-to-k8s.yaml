@@ -1,0 +1,19 @@
+---
+# EKS cluster Terraform project:
+# https://gitlab.com/Alkerix/terraform-learn/-/tree/feature/eks?ref_type=heads
+- name: Deploy app in new namespace
+  hosts: localhost
+  tasks:
+    - name: Create a k8s namespace
+      kubernetes.core.k8s:
+        name: my-app
+        api_version: v1
+        kind: Namespace 
+        state: present
+        kubeconfig: "{{ lookup('env', 'K8S_AUTH_KUBECONFIG') }}"
+    - name: Deploy nginx app 
+      kubernetes.core.k8s:
+        src: ./nginx-config.yaml
+        state: present 
+        namespace: my-app
+        kubeconfig: "{{ lookup('env', 'K8S_AUTH_KUBECONFIG') }}"

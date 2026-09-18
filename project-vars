@@ -1,0 +1,8 @@
+version: "1.0.0"
+location: "/Users/barry/node-app"
+linux_name: "barry"
+user_home_dire: "/home/{{ linux_name }}"
+
+user_groups: "wheel,docker"
+
+docker_image: alkerix/java-maven-app-2.0:latest
