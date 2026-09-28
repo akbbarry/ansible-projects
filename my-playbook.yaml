@@ -25,6 +25,7 @@
       pip:
         name: docker
         executable: pip3
+        extra_args: --ignore-installed
 
 - name: Install Docker Compose
   hosts: all
