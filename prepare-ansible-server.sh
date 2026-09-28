@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 
-sudo apt update
-sudo apt install -y ansible python3 python3-pip
+sudo dnf update
+sudo dnf install -y ansible python3 python3-pip
