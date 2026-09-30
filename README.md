@@ -1,10 +1,10 @@
 # Ansible Projects
 
-This repository contains Ansible automation projects for server configuration, Docker deployment, and Kubernetes deployment.
+This repository contains Ansible automation projects for server configuration, Docker deployment, AWS EC2, and Kubernetes deployment.
 
 ## Project Structure
 
-- `roles/` - reusable Ansible roles
+- `roles/` - Reusable Ansible roles
 - `deploy-docker-ec2-user.yaml` - Docker deployment using ec2-user
 - `deploy-docker-new-user.yaml` - Docker deployment for a new user
 - `deploy-docker-with-roles.yaml` - Docker deployment using Ansible roles
@@ -12,23 +12,33 @@ This repository contains Ansible automation projects for server configuration, D
 - `deploy-node.yaml` - Node.js deployment
 - `deploy-to-k8s.yaml` - Kubernetes deployment
 - `inventory_aws_ec2.yaml` - AWS EC2 dynamic inventory
-- `my-playbook.yaml` - Ansible playbook
+- `my-playbook.yaml` - Main Ansible playbook
 - `ansible.cfg` - Ansible configuration
+- `prepare-ansible-server.sh` - Prepares the Ansible control server
+- `project-vars` - Project variables
+- `requirements.txt` - Python dependencies
+- `requirements.yml` - Ansible collection requirements
 
-## Kubernetes Deployment
+## Docker Configuration
 
-The `deploy-to-k8s.yaml` playbook automates deployment of Kubernetes resources using Ansible.
+The `my-playbook.yaml` playbook configures an AWS EC2 instance with:
 
-The playbook uses the Kubernetes Ansible collection and a kubeconfig file to connect to the Kubernetes cluster.
-
-## Requirements
-
-- Ansible
+- Docker
+- Docker daemon
 - Python 3
-- Kubernetes Python client
-- Ansible `kubernetes.core` collection
-- Kubernetes cluster and kubeconfig
+- pip
+- Docker Python SDK
+- Docker Compose
 
-## Purpose
+The playbook uses Ansible privilege escalation where required and starts the Docker service automatically.
 
-This project demonstrates infrastructure automation and configuration management using Ansible, including Docker, AWS EC2, and Kubernetes deployments.
+## AWS EC2 Dynamic Inventory
+
+The project uses the Ansible `amazon.aws.aws_ec2` dynamic inventory plugin.
+
+The inventory discovers running EC2 instances in AWS and filters the target instance using its `Name` tag.
+
+Example target:
+
+```text
+ansible-target
